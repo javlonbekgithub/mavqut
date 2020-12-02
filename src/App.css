@@ -4,3 +4,14 @@
     box-sizing: border-box;
     transition: all;
 }
+a {
+    display: inline-block;
+    text-decoration: none;
+    position: absolute;
+    outline: none;
+    left: 0;
+    top: 0;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+}

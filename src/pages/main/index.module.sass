@@ -1,0 +1,253 @@
+.mainCont
+    background: rgb(14,14,142)
+    background: linear-gradient(90deg, rgba(14,14,142,1) 4%, rgba(203,0,255,1) 100%)
+    .spinnerCont
+        width: 100%
+        height: 100vh
+        display: flex
+        align-items: center
+        justify-content: center
+        color: #fff
+        background: rgb(86,86,255)
+        background: linear-gradient(90deg, rgba(86,86,255,1) 4%, rgba(203,0,255,1) 100%)
+    .cont
+        width: 100%
+        height: 100vh
+        position: relative
+        z-index: 0
+        padding: 0
+        display: flex
+        flex-direction: column
+        align-items: space-between
+        justify-content: space-between
+        overflow: hidden
+        transition-duration: 3s
+        transition: ease-in
+        // opacity: 
+        // transform: scale(1.1)
+        animation: contAnime 1s ease-in  
+        .headerCont  
+            position: relative
+            z-index: 3
+            width: 100%
+            display: flex
+            justify-content: flex-end   
+            .headerButtonCont
+                display: flex
+                padding: 1em
+                height: min-content
+                .headerAboutUs
+                    font-size: 1.2em
+                    padding: 0.4em 0em
+                    margin-right: 1em
+                    // background-color: #fff
+                    height: min-content
+                    cursor: pointer
+                    text-transform: capitalize
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    font-weight: bold
+                    border: 0.2em solid transparent
+                    color: #fff
+                    transition: ease-in
+                    transition-duration: 0.3s
+                    &:hover
+                        border-bottom: 0.2em solid #fff
+                .headerLetsgo
+                    text-transform: capitalize
+                    padding: 0.6em 1.3em
+                    font-weight: bold
+                    font-size: 1.2em
+                    margin-right: 1em
+                    background-color: #fff
+                    border-radius: 1.5em 
+                    color: #0e0e8e
+                    cursor: pointer
+                    margin-right: 1em
+                    height: min-content
+                    transition: ease-in
+                    transition-duration: 0.3s
+                    &:hover
+                        margin-right: 0.3em
+                        padding: 0.6em 2em
+        .backgroundImg
+            position: absolute
+            top: 0
+            left: 0
+            object-fit: cover
+            width: 100%
+            height: 100%
+            z-index: 5
+        .backgroundImgAnime
+            animation: background-animation 1s
+            z-index: 1
+        .clouds
+            position: absolute
+            top: 0
+            left: 0
+            object-fit: cover
+            width: 100%
+            height: 100%
+            z-index: -1
+        .cloudsAnime
+            animation: clouds-animation 5s
+            animation-delay: 1s
+            z-index: 2
+        .way
+            position: absolute
+            bottom: 0
+            left: 0
+            object-fit: cover
+            width: 100%
+            height: 100%
+            z-index: 2
+        .mosqueTowersCont
+            position: absolute
+            width: 40em
+            z-index: 2
+            right: 10em
+            height: 100%
+            .moon
+                position: absolute
+                bottom: 7em
+                object-fit: contain
+                width: 35em
+                margin: 0 2.5em
+                transition: ease-in
+                z-index: -2
+            .moonAnime
+                z-index: 2 
+                animation: moon-animation 10s 
+                animation-delay: 1s
+            .towers
+                position: absolute
+                object-fit: contain
+                width: 100%
+                transition: ease-in
+                bottom: 0
+                z-index: -2
+            .towersAnime  
+                z-index: 2
+                animation: towers-animation 7s
+                animation-delay: 1s
+            .mosque
+                position: absolute
+                object-fit: contain
+                transition: ease-in
+                width: 27em
+                bottom: 0
+                margin: 0 6.5em
+                z-index: -2
+            .mosqueAnime
+                z-index: 2
+                animation: mosque-animation 5s
+                animation-delay: 1s
+        .littleTowers
+            position: absolute
+            object-fit: contain
+            transition: ease-in
+            width: 70em
+            bottom: 0
+            right: 0
+            z-index: -2
+        .littleTowersAnime
+            z-index: 2
+            animation: towers-animation 10s  
+            animation-delay: 1s
+        .footer
+            width: 100%
+            position: relative
+            display: flex
+            justify-content: space-between
+            align-items: flex-end
+            padding: 1em
+            z-index: 3
+            .details
+                bottom: 100%
+                position: absolute
+                left: 7em
+                padding: 0.2em 1.3em
+                text-transform: capitalize
+                font-weight: bold
+                font-size: 1.2em
+                cursor: pointer
+                color: #ffffff
+                border: 0.15em solid #ffffff
+                border-radius: 1em
+                transition: ease-in
+                transition-duration: 0.3s
+                &:hover
+                    color: #0e0e8e
+                    background-color: #fff
+            .footerLeft
+                display: flex
+                align-items: flex-end
+                .contactCont
+                    display: flex
+                    flex-direction: column
+                    .iconsCont
+                        position: relative
+                .downloadCont
+                    position: relative
+                    display: flex
+                    color: #fff
+                    text-transform: capitalize
+                    margin-left: 2em
+                .icons
+                    object-fit: contain
+                    width: 1.5em
+                    padding: 0.2em
+            .langCont
+                color: #fff
+                display: flex
+                div
+                    text-transform: uppercase
+                    padding-left: 0.5em
+                    position: relative
+                    cursor: pointer                    
+                    &:nth-child(1)
+                        padding-right: 0.5em
+                        border-right: 2px solid #fff5
+                    &:nth-child(2)
+                        padding-right: 0.5em
+                        border-right: 2px solid #fff5
+
+                        
+    .hide
+        display: none
+    @keyframes contAnime
+        0% 
+            opacity: 0
+            // width: 70%
+        100% 
+            // width: 100%
+            opacity: 1
+        
+    @keyframes background-animation
+        from
+            z-index: 5        
+        to
+            z-index: 1
+    @keyframes clouds-animation
+        from
+            top: -100%        
+        to
+            top: 0
+    @keyframes moon-animation
+        from
+            bottom: 100%        
+        to
+            bottom: 7em
+    @keyframes mosque-animation
+        from
+            // z-index: -2
+            bottom: -100%        
+        to
+            // z-index: 2
+            bottom: 0em
+    @keyframes towers-animation
+        from
+            bottom: -100%        
+        to
+            bottom: 0em
