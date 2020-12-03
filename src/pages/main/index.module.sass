@@ -79,6 +79,8 @@
             width: 100%
             height: 100%
             z-index: 5
+            transition: ease-in
+            transition-duration: 1s
         .backgroundImgAnime
             animation: background-animation 1s
             z-index: 1
@@ -90,6 +92,8 @@
             width: 100%
             height: 100%
             z-index: -1
+            transition: ease-in
+            transition-duration: 1s
         .cloudsAnime
             animation: clouds-animation 5s
             animation-delay: 1s
@@ -101,7 +105,9 @@
             object-fit: cover
             width: 100%
             height: 100%
-            z-index: 2
+            z-index: 3
+            transition: ease-in
+            transition-duration: 1s
         .mosqueTowersCont
             position: absolute
             width: 40em
@@ -115,16 +121,21 @@
                 width: 35em
                 margin: 0 2.5em
                 transition: ease-in
+                transition-duration: 1.5s
                 z-index: -2
             .moonAnime
                 z-index: 2 
                 animation: moon-animation 10s 
                 animation-delay: 1s
+        @media screen and ( min-width: 1000px ) 
+            .moon
+                bottom: 20em
             .towers
                 position: absolute
                 object-fit: contain
                 width: 100%
                 transition: ease-in
+                transition-duration: 1s
                 bottom: 0
                 z-index: -2
             .towersAnime  
@@ -135,6 +146,7 @@
                 position: absolute
                 object-fit: contain
                 transition: ease-in
+                transition-duration: 1s
                 width: 27em
                 bottom: 0
                 margin: 0 6.5em
