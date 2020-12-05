@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/mavqut/static/css/main.57e74ed7.chunk.css",
-    "main.js": "/mavqut/static/js/main.87aca41d.chunk.js",
-    "main.js.map": "/mavqut/static/js/main.87aca41d.chunk.js.map",
+    "main.js": "/mavqut/static/js/main.51a97235.chunk.js",
+    "main.js.map": "/mavqut/static/js/main.51a97235.chunk.js.map",
     "runtime-main.js": "/mavqut/static/js/runtime-main.c01b45b5.js",
     "runtime-main.js.map": "/mavqut/static/js/runtime-main.c01b45b5.js.map",
     "static/js/2.95338ca3.chunk.js": "/mavqut/static/js/2.95338ca3.chunk.js",
@@ -29,6 +29,6 @@
     "static/js/runtime-main.c01b45b5.js",
     "static/js/2.95338ca3.chunk.js",
     "static/css/main.57e74ed7.chunk.css",
-    "static/js/main.87aca41d.chunk.js"
+    "static/js/main.51a97235.chunk.js"
   ]
 }
