@@ -9,10 +9,22 @@
         height: 100vh
         display: flex
         align-items: center
+        position: absolute
+        z-index: 6
+        top: 0
+        left: 0
         justify-content: center
         color: #fff
+        opacity: 1
+        transition: ease-in
+        transition-duration: 1s
         background: rgb(86,86,255)
         background: linear-gradient(90deg, rgba(86,86,255,1) 4%, rgba(203,0,255,1) 100%)
+    .spinnerContAnime
+        animation: opacityAnime 1s
+        animation-direction: reverse
+        opacity: 0
+        z-index: -1
     .cont
         width: 100%
         height: 100vh

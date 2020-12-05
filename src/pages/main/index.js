@@ -79,14 +79,11 @@ export const Main = () => {
 
     const [toggleHeaderFooter, setToggleHeaderFooter] = useState(false)
 
-    useEffect (() => {
-        setTimeout(() => {
-            setSpinner(false)
-            setTimeout(() => {
-                setToggleHeaderFooter(true)
-            }, 7000)
-        }, 1000)
-    },[])
+    // useEffect (() => {
+    //     setTimeout(() => {
+    //         // setSpinner(false)
+    //     }, 1000)
+    // },[])
 
 
 
@@ -94,7 +91,15 @@ export const Main = () => {
 
     const handleLoadImage = () => {
         setCounterImg(counterImg + 1)
-        counterImg === 7 && setAnimation(true)
+        if (counterImg === 7) {
+            setAnimation(true)
+            setTimeout(() => {
+                setSpinner(false)
+                setTimeout(() => {
+                    setToggleHeaderFooter(true)
+                }, 5000)
+            }, 100)
+        }
     }
 
     const handleDetails = () => {
@@ -157,15 +162,14 @@ export const Main = () => {
 
     return (
         <div className = {styles.mainCont}>
-            {spinner ? <div className = {styles.spinnerCont}>
+            <div className = {spinner ? styles.spinnerCont : `${styles.spinnerCont} ${styles.spinnerContAnime}`}>
                  <PulseLoader
-                    size={15}
+                    size={20}
                     color={"#123abc"}
                     loading={spinner}
                 /> 
-                loading
             </div>
-            :<div className = {styles.cont}>
+            <div className = {styles.cont}>
                 <div className = {styles.headerCont}>
                     <div className = {!toggleHeaderFooter ? styles.headerButtonCont : `${styles.headerButtonCont} ${styles.headerButtonAnime}`}>
                         <div className = {styles.headerAboutUs}>{lang.main.aboutUs}</div>
@@ -272,7 +276,7 @@ export const Main = () => {
                         <div>en</div>
                     </div>
                 </div>
-            </div>}
+            </div>
         </div>
         
     )
