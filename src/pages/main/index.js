@@ -12,10 +12,12 @@ import download from '../../assets/icon/download.ico'
 import phone from '../../assets/icon/phone.ico'
 import email from '../../assets/icon/email.ico'
 import question from '../../assets/icon/question.ico'
+import arrowLeft from '../../assets/icon/arrowLeft.ico'
 import PulseLoader from "react-spinners/PulseLoader"
 import { lang } from '../../languages'
 // import { screenWidth } from './constants'
 import { moveCenterMosque } from './animations-functions'
+import { detailsText, detailsTextTitle } from './constants'
 
 
 export const Main = () => {
@@ -30,6 +32,8 @@ export const Main = () => {
 
     const towersElement = useRef(null)
 
+    const littleTowersElement = useRef(null)
+
     const wayElement = useRef(null)
 
     const moonElement = useRef(null)
@@ -42,6 +46,13 @@ export const Main = () => {
     })
 
     const [towersStyle, setTowersStyle] = useState({
+        transform: ''
+        // right: null
+        // transition: 'ease-in',
+        // transitionDuration: '1s'
+    })
+
+    const [littleTowersStyle, setLittleTowersStyle] = useState({
         transform: ''
         // right: null
         // transition: 'ease-in',
@@ -64,9 +75,16 @@ export const Main = () => {
         transform: ''
     })
 
+    const [detailsTextToggle, setDetailsTextToggle] = useState(false)
+
+    const [toggleHeaderFooter, setToggleHeaderFooter] = useState(false)
+
     useEffect (() => {
         setTimeout(() => {
             setSpinner(false)
+            setTimeout(() => {
+                setToggleHeaderFooter(true)
+            }, 7000)
         }, 1000)
     },[])
 
@@ -81,27 +99,47 @@ export const Main = () => {
 
     const handleDetails = () => {
         const mosqueCenter = moveCenterMosque(mosqueElement)
+        setToggleHeaderFooter(false)
         setMosqueStyle({transform: `translate(-${mosqueCenter}px, 0`})
         setTowersStyle({transform: `translate(-${mosqueCenter}px, 0`})
+        setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 0`})
         setTimeout(() => {
             setWayStyle({transform: `scale(1.5, 1.0) translate(0px, 20px)`})
             setBackgoundStyle({transform: 'scale(1.4)'})
             setCloudsStyle({transform: 'scale(2.5)'})
-            setTowersStyle({transform: `translate(-${mosqueCenter}px, 100px)`})
+            setTowersStyle({transform: `translate(-${mosqueCenter}px, 120px)`})
+            setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 100px`})
         }, 1000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.3}px, 100px`})
-            setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.3}px, 200px`})
+            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 100px`})
+            setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 200px`})
+            setLittleTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 0.8}px, 200px`})
         }, 2000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.3}px, -5px`})
+            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, -5px`})
         }, 3000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.3}px, 70px`})
-            setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.3}px, 280px`})
+            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 70px`})
+            setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 280px`})
+            // setLittleTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 100px`})
             setWayStyle({transform: `scale(2.0, 1.0) translate(0px, 40px)`})
             setMoonStyle({transform: 'translate(700px, -700px)'})
-        }, 4000);
+        }, 4000)
+        setTimeout(() => {
+            setMosqueStyle({transform: `scale(0.5) translate(-${mosqueCenter * 2}px, 200px`})
+            setTowersStyle({transform: `scale(0.5) translate(-${mosqueCenter * 2}px, 460px`})
+            setLittleTowersStyle({transform: `scale(0.5) translate(-${mosqueCenter}px, 300px`})
+            setBackgoundStyle({transform: 'scale(1.7)'})
+            setWayStyle({transform: `scale(3.0, 1.0) translate(0px, 80px)`})
+        }, 5000)
+        setTimeout(() => {
+            setDetailsTextToggle(true)
+        }, 6000);
+    }
+
+    const handleDetailsToggle = () => {
+        setDetailsTextToggle(false)
+        reset()
     }
 
     const reset = () => {
@@ -112,6 +150,9 @@ export const Main = () => {
         setTowersStyle({transform: 'scale(1.0) translate(0, 0)'})
         setWayStyle({transform: `scale(1.0) translate(0px, 0px)`})
         setMoonStyle({transform: 'translate(0px, 0px)'})
+        setLittleTowersStyle({transform: `translate(-0, 0`})
+        setToggleHeaderFooter(true)
+        // setDetailsTextToggle(false)
     }
 
     return (
@@ -126,12 +167,26 @@ export const Main = () => {
             </div>
             :<div className = {styles.cont}>
                 <div className = {styles.headerCont}>
-                    <div className = {styles.headerButtonCont}>
+                    <div className = {!toggleHeaderFooter ? styles.headerButtonCont : `${styles.headerButtonCont} ${styles.headerButtonAnime}`}>
                         <div className = {styles.headerAboutUs}>{lang.main.aboutUs}</div>
                         <div className = {styles.headerLetsgo}>{lang.main.letsgo}</div>
                     </div>
                 </div>
                 <button style = {{position: 'absolute', top: 0, left: 0, zIndex: 3}} onClick = {reset}>reset</button>
+                <div className = {!detailsTextToggle ? styles.detailsTextCont : `${styles.detailsTextCont} ${styles.opacity}`}>
+                    <div>
+                        <img 
+                            onClick = {handleDetailsToggle} 
+                            className = {!detailsTextToggle ? styles.detailsArrowLeft : `${styles.detailsArrowLeft} ${styles.opacity}`} 
+                            src = {arrowLeft} 
+                            alt = 'back'
+                        />
+                    </div>
+                    <div className = {!detailsTextToggle ? styles.detailsText : `${styles.detailsText} ${styles.opacity}`}>
+                        <div className = {styles.detailsTextTitle}>{detailsTextTitle}</div>
+                        <div className = {styles.detailsTextContent}>{detailsText}</div>
+                    </div>
+                </div>
                 <img 
                     className = {!animation ? styles.backgroundImg : `${styles.backgroundImg} ${styles.backgroundImgAnime}`} 
                     alt = 'img' 
@@ -170,7 +225,6 @@ export const Main = () => {
                         onLoad = {handleLoadImage}
                         ref = {towersElement}
                         style = {towersStyle}
-
                     />
                     <img 
                         className = {!animation ? styles.mosque : `${styles.mosque} ${styles.mosqueAnime}`} 
@@ -185,9 +239,11 @@ export const Main = () => {
                     className = {!animation ? styles.littleTowers : `${styles.littleTowers} ${styles.littleTowersAnime}`} 
                     alt = 'img' 
                     src = {littleTowers}
+                    style = {littleTowersStyle}
+                    ref = {littleTowersElement}
                     onLoad = {handleLoadImage}
                 />
-                <div className = {styles.footer}>
+                <div className = {!toggleHeaderFooter ? styles.footer : `${styles.footer} ${styles.footerAnime}`}>
                     <div onClick = {handleDetails} className = {styles.details}>{lang.main.details}</div>
                     <div className = {styles.footerLeft}>
                         <div className = {styles.contactCont}>
