@@ -75,6 +75,7 @@ export const Main = () => {
     const handleLoadImage = () => {
         setCounterImg(counterImg + 1)
         if (counterImg === 7) {
+            console.log('asdas')
             setAnimation(true)
             setTimeout(() => {
                 setSpinner(false)
@@ -181,7 +182,7 @@ export const Main = () => {
             <div className = {styles.cont}>
                 <div className = {styles.headerCont}>
                     <div className = {!toggleHeaderFooter ? styles.headerButtonCont : `${styles.headerButtonCont} ${styles.headerButtonAnime}`}>
-                        <div className = {styles.headerAboutUs}>{lang.main.aboutUs}</div>
+                        <div onClick = {() => console.log('asdas')} className = {styles.headerAboutUs}>{lang.main.aboutUs}</div>
                         <div onClick = {handleLetsGo} className = {styles.headerLetsgo}>{lang.main.letsgo}</div>
                     </div>
                 </div>
