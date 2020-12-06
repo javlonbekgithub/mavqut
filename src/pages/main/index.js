@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styles from './index.module.sass'
 import background from '../../assets/img/background.png'
 import clouds from '../../assets/img/clouds.png'
@@ -18,7 +18,7 @@ import { lang } from '../../languages'
 import { moveCenterMosque } from './animations-functions'
 import { detailsText, detailsTextTitle } from './constants'
 import { CustomScrollBar } from '../../components/custom-scroll-bar'
-
+import '../../App.css'
 
 export const Main = () => {
 
@@ -75,11 +75,11 @@ export const Main = () => {
     const handleLoadImage = () => {
         setCounterImg(counterImg + 1)
         if (counterImg === 7) {
-            console.log('asdas')
             setAnimation(true)
             setTimeout(() => {
                 setSpinner(false)
                 setTimeout(() => {
+                    console.log(animation)
                     setToggleHeaderFooter(true)
                 }, 5000)
             }, 50)
@@ -182,7 +182,7 @@ export const Main = () => {
             <div className = {styles.cont}>
                 <div className = {styles.headerCont}>
                     <div className = {!toggleHeaderFooter ? styles.headerButtonCont : `${styles.headerButtonCont} ${styles.headerButtonAnime}`}>
-                        <div onClick = {() => console.log('asdas')} className = {styles.headerAboutUs}>{lang.main.aboutUs}</div>
+                        <div className = {styles.headerAboutUs}>{lang.main.aboutUs}</div>
                         <div onClick = {handleLetsGo} className = {styles.headerLetsgo}>{lang.main.letsgo}</div>
                     </div>
                 </div>
