@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/mavqut/static/css/main.886775ce.chunk.css",
-    "main.js": "/mavqut/static/js/main.95ec661c.chunk.js",
-    "main.js.map": "/mavqut/static/js/main.95ec661c.chunk.js.map",
+    "main.css": "/mavqut/static/css/main.129568ea.chunk.css",
+    "main.js": "/mavqut/static/js/main.f5c5f2e0.chunk.js",
+    "main.js.map": "/mavqut/static/js/main.f5c5f2e0.chunk.js.map",
     "runtime-main.js": "/mavqut/static/js/runtime-main.ff418344.js",
     "runtime-main.js.map": "/mavqut/static/js/runtime-main.ff418344.js.map",
     "static/js/2.ac2bc903.chunk.js": "/mavqut/static/js/2.ac2bc903.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.f9969033.chunk.js": "/mavqut/static/js/3.f9969033.chunk.js",
     "static/js/3.f9969033.chunk.js.map": "/mavqut/static/js/3.f9969033.chunk.js.map",
     "index.html": "/mavqut/index.html",
-    "static/css/main.886775ce.chunk.css.map": "/mavqut/static/css/main.886775ce.chunk.css.map",
+    "static/css/main.129568ea.chunk.css.map": "/mavqut/static/css/main.129568ea.chunk.css.map",
     "static/js/2.ac2bc903.chunk.js.LICENSE.txt": "/mavqut/static/js/2.ac2bc903.chunk.js.LICENSE.txt",
     "static/media/arrowLeft.5c694137.ico": "/mavqut/static/media/arrowLeft.5c694137.ico",
     "static/media/background.5beae9ff.png": "/mavqut/static/media/background.5beae9ff.png",
@@ -28,7 +28,7 @@
   "entrypoints": [
     "static/js/runtime-main.ff418344.js",
     "static/js/2.ac2bc903.chunk.js",
-    "static/css/main.886775ce.chunk.css",
-    "static/js/main.95ec661c.chunk.js"
+    "static/css/main.129568ea.chunk.css",
+    "static/js/main.f5c5f2e0.chunk.js"
   ]
 }
