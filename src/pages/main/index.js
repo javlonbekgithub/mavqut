@@ -86,17 +86,40 @@ export const Main = () => {
         }
     }
 
+    const hanleAnimate = (transformMosque, transformTowers, transformLittleTowers) => {
+        if (transformMosque) {
+            const {xMosque = 0, yMosque = 0} = transformMosque
+            setMosqueStyle({transform: `translate(-${xMosque}px, ${yMosque}px)`})
+        }
+        if (transformTowers) {
+            const {xTowers = 0, yTowers = 0} = transformTowers
+            setTowersStyle({transform: `translate(-${xTowers}px, ${yTowers}px)`})
+        }
+        if (transformLittleTowers) {
+            const {xLittleTowers = 0, yLittleTowers = 0} = transformLittleTowers
+            setLittleTowersStyle({transform: `translate(-${xLittleTowers}px, ${yLittleTowers})`})
+        }
+        
+    }
+
     const handleDetails = () => {
         const mosqueCenter = moveCenterMosque(mosqueElement)
         setToggleHeaderFooter(false)
-        setMosqueStyle({transform: `translate(-${mosqueCenter}px, 0)`})
-        setTowersStyle({transform: `translate(-${mosqueCenter}px, 0)`})
-        setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 0)`})
+        hanleAnimate(
+            {xMosque: mosqueCenter}, 
+            {xTowers: mosqueCenter}, 
+            {xLittleTowers: mosqueCenter}
+        )
+        // setMosqueStyle({transform: `translate(-${mosqueCenter}px, 0)`})
+        // setTowersStyle({transform: `translate(-${mosqueCenter}px, 0)`})
+        // setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 0)`})
         setTimeout(() => {
+            setTimeout(() => {
+                setTowersStyle({transform: `translate(-${mosqueCenter}px, 120px)`})
+            }, 100);
             setWayStyle({transform: `scale(1.5, 1.0) translate(0px, 20px)`})
             setBackgoundStyle({transform: 'scale(1.4)'})
             setCloudsStyle({transform: 'scale(2.5)'})
-            setTowersStyle({transform: `translate(-${mosqueCenter}px, 120px)`})
             setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 100px`})
         }, 1000)
         setTimeout(() => {
@@ -132,14 +155,13 @@ export const Main = () => {
     }
 
     const reset = () => {
-        setMosqueStyle({transform: `translate(-${0}px, 0)`})
-        setTowersStyle({transform: `translate(-${0}px, 0)`})
+        setMosqueStyle({transform: `scale(1.0) translate(0, 0)`})
         setBackgoundStyle({transform: 'scale(1.0)'})
         setCloudsStyle({transform: 'scale(1.0)'})
         setTowersStyle({transform: 'scale(1.0) translate(0, 0)'})
-        setWayStyle({transform: `scale(1.0) translate(0px, 0px)`})
-        setMoonStyle({transform: 'translate(0px, 0px)'})
-        setLittleTowersStyle({transform: `translate(-0, 0)`})
+        setWayStyle({transform: `scale(1.0) translate(0, 0)`})
+        setMoonStyle({transform: 'translate(0, 0)'})
+        setLittleTowersStyle({transform: `scale(1.0) translate(0, 0)`})
         setToggleHeaderFooter(true)
     }
 
