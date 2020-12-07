@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import styles from './index.module.sass'
 import background from '../../assets/img/background.png'
 import clouds from '../../assets/img/clouds.png'
@@ -14,7 +14,6 @@ import question from '../../assets/icon/question.ico'
 import arrowLeft from '../../assets/icon/arrowLeft.ico'
 import PulseLoader from "react-spinners/PulseLoader"
 import { lang } from '../../languages'
-// import { screenWidth } from './constants'
 import { moveCenterMosque } from './animations-functions'
 import { detailsText, detailsTextTitle } from './constants'
 import { CustomScrollBar } from '../../components/custom-scroll-bar'
@@ -46,7 +45,7 @@ export const Main = () => {
         transform: ''
     })
 
-    const [backgroundStyle, setBackgoundStyle] = useState({
+    const [backgroundStyle, setBackgroundStyle] = useState({
         transform: ''
     })
 
@@ -86,26 +85,60 @@ export const Main = () => {
         }
     }
 
-    const hanleAnimate = (transformMosque, transformTowers, transformLittleTowers) => {
+    const handleAnimate = useCallback((
+        transformMosque, 
+        transformTowers, 
+        transformLittleTowers,
+        transformWay,
+        transformBackground,
+        transformClouds,
+        transformMoon
+    ) => {
         if (transformMosque) {
-            const {xMosque = 0, yMosque = 0} = transformMosque
-            setMosqueStyle({transform: `translate(-${xMosque}px, ${yMosque}px)`})
+            const {xMosque = 0, yMosque = 0, scaleX = '', scaleY = ''} = transformMosque
+            setMosqueStyle({
+                transform: `${(scaleX || scaleY) ? `scale(${scaleX}, ${scaleY})` : ''} translate(-${xMosque}px, ${yMosque}px)`
+            })
         }
         if (transformTowers) {
-            const {xTowers = 0, yTowers = 0} = transformTowers
-            setTowersStyle({transform: `translate(-${xTowers}px, ${yTowers}px)`})
+            const {xTowers = 0, yTowers = 0, scaleX = '', scaleY = ''} = transformTowers
+            setTowersStyle({
+                transform: `${(scaleX || scaleY) ? `scale(${scaleX}, ${scaleY})` : ''} translate(-${xTowers}px, ${yTowers}px)`
+            })
         }
         if (transformLittleTowers) {
-            const {xLittleTowers = 0, yLittleTowers = 0} = transformLittleTowers
-            setLittleTowersStyle({transform: `translate(-${xLittleTowers}px, ${yLittleTowers})`})
+            const {xLittleTowers = 0, yLittleTowers = 0, scaleX = '', scaleY = ''} = transformLittleTowers
+            setLittleTowersStyle({
+                transform: `${(scaleX || scaleY) ? `scale(${scaleX}, ${scaleY})` : ''} translate(-${xLittleTowers}px, ${yLittleTowers}px)`
+            })
+        }
+        if (transformWay) {
+            const {xWay = 0, yWay = 0, scaleX = '', scaleY = ''} = transformWay
+            setWayStyle({
+                transform: `${(scaleX || scaleY) ? `scale(${scaleX}, ${scaleY})` : ''} translate(${xWay}px, ${yWay}px)`
+            })
+        }
+        if (transformBackground) {
+            const {scaleX = '', scaleY = ''} = transformBackground
+            setBackgroundStyle({
+                transform: `${(scaleX || scaleY) ? `scale(${scaleX}, ${scaleY})` : ''}`
+            })
+        }
+        if (transformClouds) {
+            const {scaleX, scaleY} = transformClouds
+            setCloudsStyle({transform: `scale(${scaleX}, ${scaleY})`})
+        }
+        if (transformMoon) {
+            const {xMoon, yMoon} = transformClouds
+            setMoonStyle({transform: `translate(${xMoon}px, -${yMoon}px)`})
         }
         
-    }
+    },[])
 
     const handleDetails = () => {
         const mosqueCenter = moveCenterMosque(mosqueElement)
         setToggleHeaderFooter(false)
-        hanleAnimate(
+        handleAnimate(
             {xMosque: mosqueCenter}, 
             {xTowers: mosqueCenter}, 
             {xLittleTowers: mosqueCenter}
@@ -115,38 +148,134 @@ export const Main = () => {
         // setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 0)`})
         setTimeout(() => {
             setTimeout(() => {
-                setTowersStyle({transform: `translate(-${mosqueCenter}px, 120px)`})
-            }, 100);
-            setWayStyle({transform: `scale(1.5, 1.0) translate(0px, 20px)`})
-            setBackgoundStyle({transform: 'scale(1.4)'})
-            setCloudsStyle({transform: 'scale(2.5)'})
-            setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 100px`})
+                handleAnimate(false, {xTowers: mosqueCenter, yTowers: 120})
+                // setTowersStyle({transform: `translate(-${mosqueCenter}px, 120px)`})
+            }, 100)
+            handleAnimate(
+                false,
+                false,
+                {xLittleTowers: mosqueCenter, yLittleTowers: 100},
+                {xWay: 0, yWay: 20, scaleX: 1.5, scaleY: 1.0},
+                {scaleX: 1.4, scaleY: 1.4},
+                {scaleX: 2.5, scaleY: 2.5}
+            )
+            // setWayStyle({transform: `scale(1.5, 1.0) translate(0px, 20px)`})
+            // setBackgroundStyle({transform: 'scale(1.4)'})
+            // setCloudsStyle({transform: 'scale(2.5)'})
+            // setLittleTowersStyle({transform: `translate(-${mosqueCenter}px, 100px`})
         }, 1000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 100px`})
-            setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 200px`})
-            setLittleTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 0.8}px, 200px`})
+            console.time('funct')
+            handleAnimate(
+                {
+                    xMosque: mosqueCenter * 1.4,
+                    yMosque: 100,
+                    scaleX: 0.7,
+                    scaleY: 0.7
+                },
+                {
+                    xTowers: mosqueCenter * 1.4,
+                    yTowers: 200,
+                    scaleX: 0.7,
+                    scaleY: 0.7
+                },
+                {
+                    xLittleTowers: mosqueCenter * 0.8,
+                    yLittleTowers: 200,
+                    scaleX: 0.7,
+                    scaleY: 0.7
+                }
+            )
+            console.timeEnd('funct')
+            // console.time('no')
+            // setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 100px`})
+            // setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 200px`})
+            // setLittleTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 0.8}px, 200px`})
+            // console.timeEnd('no')
         }, 2000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, -5px`})
+            handleAnimate({
+                xMosque: mosqueCenter * 1.4,
+                yMosque: -5,
+                scaleX: 0.7,
+                scaleY: 0.7
+            })
+            // setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, -5px`})
         }, 3000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 70px`})
-            setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 280px`})
+            handleAnimate(
+                {
+                    xMosque: mosqueCenter * 1.4,
+                    yMosque: 70,
+                    scaleX: 0.7,
+                    scaleY: 0.7
+                },
+                {
+                    xTowers: mosqueCenter * 1.4,
+                    yTowers: 280,
+                    scaleX: 0.7,
+                    scaleY: 0.7
+                },
+                false,
+                {
+                    xWay: 0,
+                    yWay: 40,
+                    scaleX: 2.0,
+                    scaleY: 1.0
+                },
+                false,
+                false,
+                {
+                    xMoon: 700,
+                    yMoon: -700
+                }
+            )
+            // setMosqueStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 70px`})
+            // setTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 280px`})
             // setLittleTowersStyle({transform: `scale(0.7) translate(-${mosqueCenter * 1.4}px, 100px`})
-            setWayStyle({transform: `scale(2.0, 1.0) translate(0px, 40px)`})
-            setMoonStyle({transform: 'translate(700px, -700px)'})
+            // setWayStyle({transform: `scale(2.0, 1.0) translate(0px, 40px)`})
+            // setMoonStyle({transform: 'translate(700px, -700px)'})
         }, 4000)
         setTimeout(() => {
-            setMosqueStyle({transform: `scale(0.5) translate(-${mosqueCenter * 2}px, 200px`})
-            setTowersStyle({transform: `scale(0.5) translate(-${mosqueCenter * 2}px, 460px`})
-            setLittleTowersStyle({transform: `scale(0.5) translate(-${mosqueCenter}px, 300px`})
-            setBackgoundStyle({transform: 'scale(1.7)'})
-            setWayStyle({transform: `scale(3.0, 1.0) translate(0px, 80px)`})
+            handleAnimate(
+                {
+                    xMosque: mosqueCenter * 2,
+                    yMosque: 200,
+                    scaleX: 0.5,
+                    scaleY: 0.5
+                },
+                {
+                    xTowers: mosqueCenter * 2,
+                    yTowers: 460,
+                    scaleX: 0.5,
+                    scaleY: 0.5
+                },
+                {
+                    xLittleTowers: mosqueCenter * 2,
+                    yLittleTowers: 300,
+                    scaleX: 0.5,
+                    scaleY: 0.5
+                },
+                {
+                    xWay: 0,
+                    yWay: 80,
+                    scaleX: 3.0,
+                    scaleY: 1.0
+                },
+                {
+                    scaleX: 1.7,
+                    scaleY: 1.7
+                }
+            )
+            // setMosqueStyle({transform: `scale(0.5) translate(-${mosqueCenter * 2}px, 200px`})
+            // setTowersStyle({transform: `scale(0.5) translate(-${mosqueCenter * 2}px, 460px`})
+            // setLittleTowersStyle({transform: `scale(0.5) translate(-${mosqueCenter}px, 300px`})
+            // setBackgroundStyle({transform: 'scale(1.7)'})
+            // setWayStyle({transform: `scale(3.0, 1.0) translate(0px, 80px)`})
         }, 5000)
         setTimeout(() => {
             setDetailsTextToggle(true)
-        }, 6000);
+        }, 6000)
     }
 
     const handleDetailsToggle = () => {
@@ -156,7 +285,7 @@ export const Main = () => {
 
     const reset = () => {
         setMosqueStyle({transform: `scale(1.0) translate(0, 0)`})
-        setBackgoundStyle({transform: 'scale(1.0)'})
+        setBackgroundStyle({transform: 'scale(1.0)'})
         setCloudsStyle({transform: 'scale(1.0)'})
         setTowersStyle({transform: 'scale(1.0) translate(0, 0)'})
         setWayStyle({transform: `scale(1.0) translate(0, 0)`})
@@ -176,7 +305,7 @@ export const Main = () => {
             setMoonStyle({transform: `translate(${translateLetsGo}px, ${translateLetsGo}px)`})
             setTimeout(() => {
                 setWayStyle({transform: `translate(0px, 40px)`})
-                setBackgoundStyle({transform: 'scale(1.4)'})
+                setBackgroundStyle({transform: 'scale(1.4)'})
                 setCloudsStyle({transform: 'scale(2.5)'})
                 setMosqueStyle({transform: `translate(${translateLetsGoSecondStep}px, ${translateLetsGoSecondStep}px)`})
                 setTowersStyle({transform: `translate(${translateLetsGoSecondStep}px, ${translateLetsGoSecondStep}px)`})
@@ -185,7 +314,7 @@ export const Main = () => {
             }, 1000)
             setTimeout(() => {
                 setAboutUsToggle(true)
-            }, 2000);
+            }, 2000)
         } else {
             setAboutUsToggle(false)
             reset()
